@@ -1,7 +1,11 @@
 from mazelib import Maze
-from mazelib.generate.Prims import Prims
+from mazelib.generate.Kruskal import Kruskal
 
-from mazelib.solve.BacktrackingSolver import BacktrackingSolver
+from mazelib.solve.Tremaux import Tremaux
+
+from mazelib.solve.new_solver import new_solver
+
+from mazelib.solve.ShortestPath import ShortestPath
 
 import matplotlib.pyplot as plt
 
@@ -44,28 +48,44 @@ def toHTML(grid, start, end, cell_size=10):
 
 
 
-def showPNG(grid):
+def showPNG(m):
     plt.figure(figsize=(10, 5))
-    plt.imshow(grid, cmap=plt.cm.binary, interpolation='nearest')
+    solution= m.solutions[0]
+    
+    for i in solution:
+        plt.plot(i[1],i[0],'r+')
+    plt.imshow(m.grid, cmap=plt.cm.binary, interpolation='nearest')
+    plt.plot(m.start[1],m.start[0],"go")
+    plt.plot(m.end[1],m.end[0],"ro")
     plt.xticks([]), plt.yticks([])
     plt.show()
 
 
-#toHTML(m, 3, 4, cell_size=10)
+size =50
 
 
 m = Maze()
-m.generator = Prims(27, 34)
+m.generator = Kruskal(size,size)
 m.generate()
-print(m)
-#showPNG(m.grid)
+#print(m)
 
-#toHTML(m.grid, m.start, m.end, cell_size=10)
-
-m.solver = BacktrackingSolver()
+m.solver = new_solver()
 m.generate_entrances()
 m.solve()
-print(m)
-showPNG(m.grid)
+#print(m)
+print(m.solutions)
 
 
+showPNG(m)
+
+
+m.solver = Tremaux()
+m.solve()
+#print(len(m.solutions))
+showPNG(m)
+
+
+
+m.solver = ShortestPath()
+m.solve()
+showPNG(m)

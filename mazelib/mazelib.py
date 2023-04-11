@@ -214,8 +214,8 @@ class Maze:
         ), "Start and end times must be set first."
 
         self.solutions = self.solver.solve(self.grid, self.start, self.end)
-        if self.prune:
-            self.solutions = self.solver.prune_solutions(self.solutions)
+        #if self.prune:
+        #    self.solutions = self.solver.prune_solutions(self.solutions)
 
     def tostring(self, entrances=False, solutions=False):
         """Return a string representation of the maze.
