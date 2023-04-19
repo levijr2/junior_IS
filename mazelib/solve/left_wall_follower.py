@@ -7,7 +7,7 @@ if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
-class new_solver(MazeSolveAlgo):
+class left_wall_follower(MazeSolveAlgo):
     """
     1. follow the left wall untill the end
     """
@@ -115,10 +115,6 @@ class new_solver(MazeSolveAlgo):
         ''' 
         orientation= self.find_direction(solution[-2][0],solution[-2][1],current[0],current[1])
         #print(self.go_back(orientation, current))
-
-        choices=self._find_adjacents(solution[-1])
-        
-        #print(choices)
         '''
         print(self.go_back(orientation,self.go_back(orientation,solution[-1])))
         print(self.go_left(orientation,self.go_left(orientation,solution[-1])))
@@ -126,7 +122,7 @@ class new_solver(MazeSolveAlgo):
         print(self.go_straight(orientation,self.go_straight(orientation,solution[-1])))
         '''
         # follow the left wall until you hit the end
-        
+        Node_count=0
         while not self._within_one(solution[-1], self.end):
         #for i in range(10):
             #print(solution[-1])
@@ -136,33 +132,32 @@ class new_solver(MazeSolveAlgo):
             
             
             orientation= self.find_direction(solution[-2][0],solution[-2][1],solution[-1][0],solution[-1][1])
-            #print(orientation)
-            #print(self.grid[self.go_left(orientation,solution[-1])])
-            #print(self.grid[self.go_straight(orientation,solution[-1])])
-            #print(self.grid[self.go_right(orientation,solution[-1])])
-            #print(self.grid[self.go_back(orientation,solution[-1])])
             
             if not self.grid[self.go_left(orientation,solution[-1])]:
                 current=self.go_left(orientation,solution[-1])
                 solution.append(current)
+                Node_count= Node_count + 1
                 
             elif not self.grid[self.go_straight(orientation,solution[-1])]:
                 current=self.go_straight(orientation,solution[-1])
                 solution.append(current)
+                Node_count= Node_count + 1
 
                 
             elif not self.grid[self.go_right(orientation,solution[-1])]:
                 current=self.go_right(orientation,solution[-1])
                 solution.append(current)
+                Node_count= Node_count + 1
                 
             elif not self.grid[self.go_back(orientation,solution[-1])]:
                 current=self.go_back(orientation,solution[-1])
                 solution.append(current)
+                Node_count= Node_count + 1
                 
             else:
                 print("no move")
-        #print(solution[-1])
+        
                 
         
-        #print(solution)
+        print(print("Left_wall_follower solver visited ",Node_count, " nodes"))
         return [solution]

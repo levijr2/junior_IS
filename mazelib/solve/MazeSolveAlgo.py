@@ -56,26 +56,7 @@ class MazeSolveAlgo:
     All of the methods below this are helper methods,
     common to many maze-solving algorithms.
     """
-    def _find_adjacents(self,posi):
-        r, c = posi
-        ns = []
-
-        if r > 1 and not self.grid[r - 1, c]:
-            ns.append((r - 1, c))
-        if (r < self.grid.shape[0] - 2 and not self.grid[r + 1, c]):
-            ns.append((r + 1, c))
-            
-        if c > 1 and not self.grid[r, c - 1] :
-            ns.append((r, c - 1))
-            
-        if (
-            c < self.grid.shape[1] - 2 and not self.grid[r, c + 1]):
-            ns.append((r, c + 1))
-
-        shuffle(ns)
-        return ns
-
-
+ 
 
     def _find_unblocked_neighbors(self, posi):
         """Find all the grid neighbors of the current position; visited, or not.

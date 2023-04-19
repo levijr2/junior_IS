@@ -39,6 +39,8 @@ class Tremaux(MazeSolveAlgo):
         Return:
             list: a single maze solution
         """
+        node_count = 0
+        
         self.visited_cells = {}
         solution = []
 
@@ -46,15 +48,18 @@ class Tremaux(MazeSolveAlgo):
         current = self.start
         solution.append(current)
         self._visit(current)
+        node_count = node_count +1
 
         # if you're on the edge, push it in one
         if self._on_edge(self.start):
             current = self._push_edge(self.start)
             solution.append(current)
             self._visit(current)
+            node_count = node_count +1
 
         # pick a random neighbor using Tremaux logic and travel to it, until you're at the end
         while not self._within_one(solution[-1], self.end):
+            node_count = node_count +1
             # find the neighbors of the current cell
             ns = self._find_unblocked_neighbors(solution[-1])
 
@@ -65,7 +70,7 @@ class Tremaux(MazeSolveAlgo):
             solution.append(self._midpoint(solution[-1], nxt))
             solution.append(nxt)
             self._visit(nxt)
-
+        print("Tremaux solver visited ",node_count , " nodes")
         return [solution]
 
     def _visit(self, cell):

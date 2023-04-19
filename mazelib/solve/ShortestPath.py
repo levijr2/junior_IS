@@ -24,6 +24,8 @@ class ShortestPath(MazeSolveAlgo):
         Returns:
             list: valid maze solutions
         """
+        print("runnin bfs")
+        node_count = 0
         # determine if edge or body entrances
         self.start_edge = self._on_edge(self.start)
         self.end_edge = self._on_edge(self.start)
@@ -42,13 +44,16 @@ class ShortestPath(MazeSolveAlgo):
         for sp in start_posis:
             if self.start_edge:
                 solutions.append([start, self._midpoint(start, sp), sp])
+                node_count = node_count + 1
             else:
                 solutions.append([self._midpoint(start, sp), sp])
+                node_count = node_count +1
 
         # 2) loop through each solution, and find the neighbors of the last element
         num_unfinished = len(solutions)
         while num_unfinished > 0:
             for s in range(len(solutions)):
+                node_count = node_count +1
                 if solutions[s][-1] in solutions[s][:-1]:
                     # stop all solutions that have done a full loop
                     solutions[s].append(None)
@@ -91,7 +96,7 @@ class ShortestPath(MazeSolveAlgo):
             num_unfinished = sum(
                 map(lambda sol: 0 if sol[-1] is None else 1, solutions)
             )
-
+        print("BFS solver visited ", node_count, " nodes")
         # 4) clean-up solutions
         return self._clean_up(solutions)
 
