@@ -10,3 +10,5 @@
 # added Node_count variable 
 # added lines that add 1 to node_count whenever the solver visits a node
 # added line that prints node count
+## removed solution pruning to show more accurate path for Left Wall Follower and Tremaux
+## created try_imperfect_mazes.py

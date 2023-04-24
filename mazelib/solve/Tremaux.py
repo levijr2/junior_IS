@@ -86,8 +86,7 @@ class Tremaux(MazeSolveAlgo):
         self.visited_cells[cell] += 1
 
     def _get_visit_count(self, cell):
-        """How many times has a cell been visited?
-
+        """How many times has a cell been visited?       
         Args:
             cell (tuple): cell of interest
         Returns:
@@ -99,20 +98,7 @@ class Tremaux(MazeSolveAlgo):
             return self.visited_cells[cell] if self.visited_cells[cell] < 3 else 2
 
     def _what_next(self, ns, solution):
-        """Find the cell to move to next, based on the Tremaux logic:
-        1. When you hit a dead end, turn around and go back.
-        2. When you hit a junction you haven't visited, pick a new passage at random.
-        3. If you're walking down a new passage and hit a junction you have visited,
-            treat it like a dead end and go back.
-        4. If walking down a passage you have visited before (i.e. marked once) and you hit a junction,
-            take any new passage available, otherwise take an old passage (i.e. marked once).
-
-        Args:
-            ns (list): neighboring cells to choose next move from
-            solution (list): the path we have taken so far
-        Returns:
-            tuple: the cell we want to move to next
-        """
+        
         # handle the easy scenario (and let this throw an error if ns is empty)
         if len(ns) <= 1:
             return ns[0]

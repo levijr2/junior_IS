@@ -42,23 +42,21 @@ class BreadthFirstSearchSolver(MazeSolveAlgo):
         
         if self._on_edge(self.start):
             current_node = self._push_edge(self.start)
-        
-        
-        
-        
+
         frontier=[] #this will act as our queue, we will use pop(0) for our dequeue
         visited = []  # Set to keep track of visited cells
         parent={} #dictionary of (node : parent pairs)
-        solution=[]
+        solution=[]#used to store solution path after the end is found
+        
+        #make currennt_node the node adjacent to start
         if self._on_edge(current_node):
                 current_node = self._push_edge(current_node)
-                
-    
         frontier.append(current_node)
         visited.append(current_node)
         
         
-        #explores using BFS pattern
+        
+        #explores using BFS pattern 
         while not self._within_one(current_node, self.end):
             current_node = frontier.pop(0)
             current_neighbors=self.get_neighbors(current_node)
@@ -74,7 +72,6 @@ class BreadthFirstSearchSolver(MazeSolveAlgo):
         while not self._within_one(parent[current_node], self.start): 
             solution.append(parent[current_node])
             current_node= parent[current_node]
-
         solution.append(self._push_edge(self.start))
         
         

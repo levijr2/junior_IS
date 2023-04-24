@@ -45,7 +45,7 @@ size =30
 
 
 m = Maze()
-m.generator =Kruskal(size,size)
+m.generator =CellularAutomaton(size,size)
 m.generate()
 m.generate_entrances()
 
